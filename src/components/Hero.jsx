@@ -125,7 +125,7 @@ export default function Hero({ onOpenBooking }) {
             <div className="group relative rounded-3xl overflow-hidden border-2 border-red-500/50 bg-slate-900/90 shadow-[0_12px_40px_rgba(220,38,38,0.25)] hover:border-red-400 transition-all duration-300">
               <div className="relative h-48 sm:h-52 overflow-hidden bg-slate-950">
                 <img
-                  src="/images/xylo-real.jpg"
+                  src={siteConfig.vehicles[0].realImage}
                   alt="Mahindra Xylo ICU Ambulance Gondal"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -171,7 +171,7 @@ export default function Hero({ onOpenBooking }) {
             <div className="group relative rounded-3xl overflow-hidden border-2 border-blue-500/50 bg-slate-900/90 shadow-[0_12px_40px_rgba(37,99,235,0.2)] hover:border-blue-400 transition-all duration-300">
               <div className="relative h-48 sm:h-52 overflow-hidden bg-slate-950">
                 <img
-                  src="/images/eeco-real.jpg"
+                  src={siteConfig.vehicles[1].realImage}
                   alt="Maruti Eeco Ambulance Gondal"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />

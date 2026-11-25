@@ -9,6 +9,13 @@
  * =============================================================================
  */
 
+// Helper to resolve asset path reliably on GitHub Pages subfolder, local, or custom domain
+const getAsset = (path) => {
+  const base = import.meta.env.BASE_URL || './';
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${base}${cleanPath}`;
+};
+
 export const siteConfig = {
   // 📞 મુખ્ય સંપર્ક વિગતો (Main Contact Details)
   brand: {
@@ -23,10 +30,10 @@ export const siteConfig = {
     primaryPhone: "9316777108",
     secondaryPhone: "6351478080",
     whatsappNumber: "919316777108",
-    logo: "/images/logo.png",
-    logoDark: "/images/logo-dark.png",
-    favicon: "/images/favicon.png",
-    visitingCardImage: "/images/visiting-card.png",
+    logo: getAsset("images/logo.png"),
+    logoDark: getAsset("images/logo-dark.png"),
+    favicon: getAsset("images/favicon.png"),
+    visitingCardImage: getAsset("images/visiting-card.png"),
     taglineEn: "Your Health... Our Priority...",
     taglineGu: "સત્ય પ્રેમ ને કરુણા... સ્વાસ્થ્ય આપનું, પ્રાથમિકતા અમારી...",
     subTaglineEn: "Always Ready... For Your Care...",
@@ -49,8 +56,8 @@ export const siteConfig = {
       typeGu: "એડવાન્સ ICU & લાંબી મુસાફરી માટે શ્રેષ્ઠ",
       badgeEn: "ICU & AC Facility",
       badgeGu: "ICU & AC સુવિધા",
-      realImage: "/images/xylo-real.jpg",
-      interiorImage: "/images/icu-interior.jpg",
+      realImage: getAsset("images/xylo-real.jpg"),
+      interiorImage: getAsset("images/icu-interior.jpg"),
       descriptionEn: "High-comfort SUV platform equipped with complete ICU apparatus, dual oxygen cylinders, and smooth hydraulic suspension for critical patient transfers to Rajkot or Ahmedabad.",
       descriptionGu: "વિશાળ અને આરામદાયક એસયુવી, જેમાં સંપૂર્ણ ICU સેટઅપ, ડબલ ઓક્સિજન, અને દર્દીને આંચકા ન લાગે તેવા સ્મૂથ સસ્પેન્શન સાથે રાજકોટ કે અમદાવાદ માટે સૌથી આદર્શ.",
       spaceDimensions: {
@@ -109,8 +116,8 @@ export const siteConfig = {
       typeGu: "ઝડપી સિટી રિસ્પોન્સ & વ્યાજબી દર",
       badgeEn: "AC / Non-AC Available",
       badgeGu: "AC / Non-AC ઉપલબ્ધ",
-      realImage: "/images/eeco-real.jpg",
-      interiorImage: "/images/eeco-interior.jpg",
+      realImage: getAsset("images/eeco-real.jpg"),
+      interiorImage: getAsset("images/eeco-interior.jpg"),
       descriptionEn: "Highly agile ambulance engineered to navigate Gondal's bustling streets and narrow alleys swiftly. Best for quick local hospital admissions, dialysis trips, and checkups.",
       descriptionGu: "ગોંડલ શહેર અને આસપાસના ગામડાઓના રસ્તાઓમાં તાબડતોબ પહોંચવા માટે સૌથી ચપળ અને આર્થિક રીતે દરેક પરિવારને પરવડે તેવી ઝડપી એમ્બ્યુલન્સ.",
       spaceDimensions: {
@@ -171,7 +178,7 @@ export const siteConfig = {
       titleGu: "એડવાન્સ ICU & વેન્ટિલેટર સેટઅપ",
       descEn: "Clean, sterilized life-support cabin with cardiac monitor, suction machine, and automated ventilator in Mahindra Xylo.",
       descGu: "મહિન્દ્રા ઝાયલોમાં કાર્ડિયાક મોનિટર, સક્શન મશીન અને ઓટોમેટિક વેન્ટિલેટર સાથે સંપૂર્ણ ICU કેબિન.",
-      image: "/images/icu-interior.jpg",
+      image: getAsset("images/icu-interior.jpg"),
       badgeEn: "Critical ICU",
       badgeGu: "ક્રિટિકલ ICU"
     },
@@ -181,7 +188,7 @@ export const siteConfig = {
       titleGu: "હાઈ-કેપેસિટી ડબલ ઓક્સિજન સપ્લાય",
       descEn: "Continuous un-interrupted high-flow medical oxygen manifold with backup cylinder for long trips to Ahmedabad & Rajkot.",
       descGu: "રાજકોટ અને અમદાવાદ સુધી અવિરત ઓક્સિજન પ્રવાહ માટે ડબલ મેડિકલ ઓક્સિજન સિલિન્ડર કનેક્શન.",
-      image: "/images/oxygen-equipment.jpg",
+      image: getAsset("images/oxygen-equipment.jpg"),
       badgeEn: "Pure Medical O2",
       badgeGu: "મેડિકલ ઓક્સિજન"
     },
@@ -191,7 +198,7 @@ export const siteConfig = {
       titleGu: "શોક-એબ્સોર્બિંગ ઓટો લોડિંગ સ્ટ્રેચર",
       descEn: "Comfortable ergonomic patient bed with smooth hydraulic loading system minimizing road bumps during transit.",
       descGu: "મુસાફરી દરમિયાન દર્દીને જરાય આંચકા ન લાગે તેવું અત્યાધુનિક હાઇડ્રોલિક ઓટો-લોડિંગ સ્ટ્રેચર બેડ.",
-      image: "/images/emergency-stretcher.jpg",
+      image: getAsset("images/emergency-stretcher.jpg"),
       badgeEn: "Patient Comfort",
       badgeGu: "આરામદાયક બેડ"
     },
@@ -201,7 +208,7 @@ export const siteConfig = {
       titleGu: "સેનિટાઇઝ્ડ કેબિન & સગાઓ માટે બેઠક",
       descEn: "100% sanitized interior after every patient shift, with dedicated seating for relatives and paramedic attendant.",
       descGu: "દરેક શિફ્ટિંગ બાદ ૧૦૦% સેનિટાઈઝ થતી કેબિન અને દર્દીના સગા-સંબંધીઓ માટે આરામદાયક સીટિંગ સ્પેસ.",
-      image: "/images/paramedic-care.jpg",
+      image: getAsset("images/paramedic-care.jpg"),
       badgeEn: "100% Sanitized",
       badgeGu: "૧૦૦% સેનિટાઈઝ્ડ"
     }
