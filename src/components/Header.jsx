@@ -180,15 +180,6 @@ export default function Header({ onOpenBooking, onOpenVisitingCard }) {
               </a>
 
               <a
-                href="#hospitals"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 text-slate-100 font-bold text-sm transition border border-slate-800/80"
-              >
-                <span>🏥 {t('હોસ્પિટલ્સ નેટવર્ક (AIIMS, CIMS)', 'Hospitals Network')}</span>
-                <ChevronRight className="w-4 h-4 text-slate-500" />
-              </a>
-
-              <a
                 href="#why-us"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center justify-between p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 text-slate-100 font-bold text-sm transition border border-slate-800/80"

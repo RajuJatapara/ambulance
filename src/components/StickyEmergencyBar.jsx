@@ -8,19 +8,15 @@ export default function StickyEmergencyBar({ onOpenBooking }) {
   const { brand } = siteConfig;
   const [isLocating, setIsLocating] = useState(false);
 
-  // Auto-detect GPS and open WhatsApp with Google Map Link
+  // Auto-detect GPS and open WhatsApp seamlessly without popup blocker
   const handleSendGPSLocation = (e) => {
     e.preventDefault();
     setIsLocating(true);
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setIsLocating(false);
-          const { latitude, longitude } = position.coords;
-          const mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-          
-          const message = lang === 'gu'
+    const openWhatsApp = (mapUrl = null) => {
+      setIsLocating(false);
+      const message = mapUrl
+        ? (lang === 'gu'
             ? `🚨 *ઇમરજન્સી એમ્બ્યુલન્સ જરૂરિયાત!* 🚨
 કૃપા કરીને તાત્કાલિક એમ્બ્યુલન્સ મોકલો.
 📍 *મારું લાઈવ GPS લોકેશન:*
@@ -32,33 +28,38 @@ Please dispatch an ambulance immediately.
 📍 *My Live GPS Location:*
 ${mapUrl}
 
-(Please arrive at this location urgently)`;
-
-          window.open(`https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
-        },
-        (error) => {
-          setIsLocating(false);
-          // Fallback if user denies location permission
-          const fallbackMsg = lang === 'gu'
+(Please arrive at this location urgently)`)
+        : (lang === 'gu'
             ? `🚨 *ઇમરજન્સી એમ્બ્યુલન્સ જરૂરિયાત!* 🚨
 મારે ગોંડલ / આસપાસના વિસ્તારમાં તાત્કાલિક એમ્બ્યુલન્સની જરૂર છે.
-કૃપા કરીને તાત્કાલિક સંપર્ક કરો!`
+(કૃપા કરીને આ ચેટમાં તમારું લોકેશન પણ શેર કરો)
+તાત્કાલિક સંપર્ક કરો!`
             : `🚨 *EMERGENCY AMBULANCE REQUIRED!* 🚨
 I need an ambulance immediately in Gondal or nearby area.
-Please respond urgently!`;
+Please respond urgently!`);
 
-          window.open(`https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(fallbackMsg)}`, '_blank');
+      const whatsappUrl = `https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(message)}`;
+      
+      // Use window.location.href to launch WhatsApp app natively on 1st click (no popup blocker!)
+      window.location.href = whatsappUrl;
+    };
+
+    if (typeof navigator !== 'undefined' && navigator.geolocation) {
+      // 3.5s timeout with cellular/wifi instant fallback (enableHighAccuracy: false)
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+          openWhatsApp(mapUrl);
         },
-        { enableHighAccuracy: true, timeout: 6000 }
+        (error) => {
+          // If location is OFF or denied, immediately open WhatsApp anyway with emergency text!
+          openWhatsApp(null);
+        },
+        { enableHighAccuracy: false, timeout: 3500, maximumAge: 60000 }
       );
     } else {
-      setIsLocating(false);
-      window.open(
-        `https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(
-          lang === 'gu' ? '🚨 ઇમરજન્સી એમ્બ્યુલન્સ જરૂરિયાત!' : '🚨 Urgent Ambulance Required!'
-        )}`,
-        '_blank'
-      );
+      openWhatsApp(null);
     }
   };
 
@@ -123,7 +124,7 @@ Please respond urgently!`;
             </div>
             <div className="text-left min-w-0">
               <span className="text-[10px] block font-bold text-emerald-100 uppercase tracking-tight truncate leading-tight">
-                {isLocating ? t('શોધે છે...', 'Locating...') : t('લાઈવ GPS', 'Live GPS')}
+                {isLocating ? t('શોધે છે...', 'Locating...') : t('લોકેશન મોકલો', 'Send Location')}
               </span>
               <span className="text-xs sm:text-sm font-black text-white block leading-none mt-0.5 truncate">
                 WhatsApp

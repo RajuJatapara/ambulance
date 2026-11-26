@@ -104,7 +104,11 @@ export default function RouteEstimator({ onOpenBooking }) {
                 </a>
 
                 <a
-                  href={`https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(`નમસ્તે, મારે ${currentRoute.en} માટે એમ્બ્યુલન્સ ના ભાડા ની વિગત જાણવી છે.`)}`}
+                  href={`https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(
+                    lang === 'gu'
+                      ? `નમસ્તે, મારે ${currentRoute.gu} માટે એમ્બ્યુલન્સ ના ભાડા ની વિગત જાણવી છે.`
+                      : `Hello, I would like to inquire about ambulance fare for ${currentRoute.en}.`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs sm:text-sm shadow-md transition"

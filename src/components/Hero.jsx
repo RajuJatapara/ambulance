@@ -1,8 +1,7 @@
 import React from 'react';
-import { Phone, MessageCircle, MapPin, Zap, CheckCircle2, Shield, HeartPulse, Clock, Sparkles, Navigation, ArrowRight, Bed, Wind, Activity, Download, UserPlus } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, Zap, CheckCircle2, Shield, HeartPulse, Clock, Sparkles, Navigation, ArrowRight, Bed, Wind, Activity } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { useLanguage } from '../context/LanguageContext';
-import { downloadVCard } from '../utils/vcard';
 import AnimatedCounter from './AnimatedCounter';
 
 export default function Hero({ onOpenBooking }) {
@@ -96,22 +95,13 @@ export default function Hero({ onOpenBooking }) {
               </a>
             </div>
 
-            {/* 📲 1-CLICK SAVE CONTACT IN PHONE BUTTON */}
-            <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-1">
-              <button
-                onClick={() => downloadVCard(brand)}
-                className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 bg-slate-800/90 hover:bg-slate-700 text-white py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold border border-slate-700/80 shadow transition active:scale-95"
-                title="Save contact details directly to your mobile address book"
-              >
-                <UserPlus className="w-4 h-4 text-emerald-400" />
-                <span>{t('📲 ભાવેશભાઈનો નંબર ફોનમાં સેવ કરો', '📲 Save Contact to Phone')}</span>
-              </button>
-
+            {/* Quick Online Booking Button */}
+            <div className="pt-1">
               <button
                 onClick={() => onOpenBooking()}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-red-600/90 hover:bg-red-600 text-white py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold shadow transition active:scale-95"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-black py-3 px-6 rounded-2xl text-sm shadow-lg shadow-red-600/30 transition active:scale-95 border border-red-400/40"
               >
-                <span>{t('ઓનલાઇન બુકિંગ', 'Book Online')}</span>
+                <span>{t('ઓનલાઇન એમ્બ્યુલન્સ બુક કરો', 'Book Ambulance Online')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

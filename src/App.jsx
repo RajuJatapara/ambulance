@@ -7,7 +7,6 @@ import Vehicles from './components/Vehicles';
 import InteriorGallery from './components/InteriorGallery';
 import Services from './components/Services';
 import RouteEstimator from './components/RouteEstimator';
-import HospitalDirectory from './components/HospitalDirectory';
 import FirstAidTips from './components/FirstAidTips';
 import WhyChooseUs from './components/WhyChooseUs';
 import FAQ from './components/FAQ';
@@ -76,10 +75,6 @@ export default function App() {
           />
 
           <RouteEstimator
-            onOpenBooking={() => handleOpenBooking()}
-          />
-
-          <HospitalDirectory
             onOpenBooking={() => handleOpenBooking()}
           />
 
