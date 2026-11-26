@@ -7,6 +7,7 @@ import Vehicles from './components/Vehicles';
 import InteriorGallery from './components/InteriorGallery';
 import Services from './components/Services';
 import RouteEstimator from './components/RouteEstimator';
+import HospitalDirectory from './components/HospitalDirectory';
 import FirstAidTips from './components/FirstAidTips';
 import WhyChooseUs from './components/WhyChooseUs';
 import FAQ from './components/FAQ';
@@ -20,14 +21,18 @@ export default function App() {
 
   // Automatically sync favicon from siteConfig so changing config instantly updates the URL/tab icon
   useEffect(() => {
-    const faviconHref = siteConfig.brand.favicon || siteConfig.brand.logo || '/images/logo.png';
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link) {
-      link = document.createElement('link');
+    const faviconHref = siteConfig.brand.favicon || siteConfig.brand.logo || './favicon.png';
+    const links = document.querySelectorAll("link[rel*='icon']");
+    if (links.length > 0) {
+      links.forEach((l) => {
+        l.href = faviconHref;
+      });
+    } else {
+      const link = document.createElement('link');
       link.rel = 'icon';
+      link.href = faviconHref;
       document.head.appendChild(link);
     }
-    link.href = faviconHref;
   }, []);
 
   const handleOpenBooking = (vehicleOrService = null) => {
@@ -71,6 +76,10 @@ export default function App() {
           />
 
           <RouteEstimator
+            onOpenBooking={() => handleOpenBooking()}
+          />
+
+          <HospitalDirectory
             onOpenBooking={() => handleOpenBooking()}
           />
 

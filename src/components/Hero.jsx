@@ -1,7 +1,9 @@
 import React from 'react';
-import { Phone, MessageCircle, MapPin, Zap, CheckCircle2, Shield, HeartPulse, Clock, Sparkles, Navigation, ArrowRight, Bed, Wind, Activity } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, Zap, CheckCircle2, Shield, HeartPulse, Clock, Sparkles, Navigation, ArrowRight, Bed, Wind, Activity, Download, UserPlus } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { useLanguage } from '../context/LanguageContext';
+import { downloadVCard } from '../utils/vcard';
+import AnimatedCounter from './AnimatedCounter';
 
 export default function Hero({ onOpenBooking }) {
   const { lang, t } = useLanguage();
@@ -9,23 +11,24 @@ export default function Hero({ onOpenBooking }) {
 
   return (
     <section className="relative overflow-hidden bg-slate-950 text-white pt-6 pb-16 lg:pt-10 lg:pb-20 border-b border-slate-800">
-      {/* 3D Medical High-Tech Background Glow */}
-      <div className="absolute top-0 right-1/4 -mt-20 w-[500px] h-[500px] rounded-full bg-red-600/20 blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-10 -mb-20 w-[400px] h-[400px] rounded-full bg-blue-600/15 blur-[100px] pointer-events-none"></div>
+      {/* 🚨 Dual Red-Blue Emergency Beacon Siren Flashes */}
+      <div className="absolute -top-10 left-1/4 w-80 h-80 rounded-full bg-red-600/25 blur-[120px] pointer-events-none animate-beacon-red"></div>
+      <div className="absolute -top-10 right-1/4 w-80 h-80 rounded-full bg-blue-600/20 blur-[120px] pointer-events-none animate-beacon-blue"></div>
+      <div className="absolute bottom-0 left-10 -mb-20 w-[400px] h-[400px] rounded-full bg-red-600/15 blur-[100px] pointer-events-none"></div>
       
       {/* Cyber Grid Lines Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         
-        {/* Top Floating Command Strip */}
+        {/* Top Floating Command Strip with Live Siren Indicator */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6 p-2.5 sm:p-3 bg-slate-900/90 border border-slate-800 rounded-2xl shadow-xl backdrop-blur-md">
           <div className="flex items-center gap-2.5 text-xs font-bold">
             <span className="flex h-3 w-3 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
             </span>
-            <span className="text-emerald-400 uppercase tracking-wider">{t('લાઈવ કમાન્ડ સેન્ટર:', 'Live Command:')}</span>
+            <span className="text-red-400 uppercase tracking-wider">{t('લાઈવ કમાન્ડ સેન્ટર:', 'Live Command:')}</span>
             <span className="text-slate-200">{t('૨ એમ્બ્યુલન્સ ગોંડલ સ્ટેન્ડબાય પર તૈયાર', '2 Ambulances Ready on Gondal Standby')}</span>
           </div>
 
@@ -93,26 +96,67 @@ export default function Hero({ onOpenBooking }) {
               </a>
             </div>
 
-            {/* Live Impact Counters (4 Big Stats) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
-              <div className="bg-slate-900/80 border border-slate-800 p-2.5 rounded-2xl text-center">
-                <div className="text-xl sm:text-2xl font-black text-red-500">24/7</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('કટોકટી સેવા', 'Emergency')}</div>
+            {/* 📲 1-CLICK SAVE CONTACT IN PHONE BUTTON */}
+            <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-1">
+              <button
+                onClick={() => downloadVCard(brand)}
+                className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 bg-slate-800/90 hover:bg-slate-700 text-white py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold border border-slate-700/80 shadow transition active:scale-95"
+                title="Save contact details directly to your mobile address book"
+              >
+                <UserPlus className="w-4 h-4 text-emerald-400" />
+                <span>{t('📲 ભાવેશભાઈનો નંબર ફોનમાં સેવ કરો', '📲 Save Contact to Phone')}</span>
+              </button>
+
+              <button
+                onClick={() => onOpenBooking()}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-red-600/90 hover:bg-red-600 text-white py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold shadow transition active:scale-95"
+              >
+                <span>{t('ઓનલાઇન બુકિંગ', 'Book Online')}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* 💓 ANIMATED MEDICAL ECG HEARTBEAT LINE */}
+            <div className="relative py-1">
+              <svg viewBox="0 0 1000 40" className="w-full h-7 text-red-500/40">
+                <path
+                  d="M0,20 L180,20 L190,10 L200,30 L210,5 L220,35 L230,20 L380,20 L390,10 L400,30 L410,5 L420,35 L430,20 L580,20 L590,10 L600,30 L610,5 L620,35 L630,20 L780,20 L790,10 L800,30 L810,5 L820,35 L830,20 L1000,20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="animate-ecg"
+                />
+              </svg>
+            </div>
+
+            {/* Live Impact Counters (4 Big Animated Stats) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+              <div className="bg-slate-900/80 border border-slate-800 p-2.5 rounded-2xl text-center shadow-md hover:border-red-500/40 transition">
+                <div className="text-xl sm:text-2xl font-black text-red-500">
+                  <AnimatedCounter end={1500} suffix="+" duration={1400} />
+                </div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('દર્દી શિફ્ટિંગ', 'Patients Shifted')}</div>
               </div>
 
-              <div className="bg-slate-900/80 border border-slate-800 p-2.5 rounded-2xl text-center">
-                <div className="text-xl sm:text-2xl font-black text-amber-400">10-15 Min</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('ગોંડલમાં સમય', 'Reach Time')}</div>
+              <div className="bg-slate-900/80 border border-slate-800 p-2.5 rounded-2xl text-center shadow-md hover:border-amber-500/40 transition">
+                <div className="text-xl sm:text-2xl font-black text-amber-400">
+                  <AnimatedCounter end={10} suffix="-15 M" duration={1000} />
+                </div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('ગોંડલમાં પહોંચ', 'Reach Time')}</div>
               </div>
 
-              <div className="bg-slate-900/80 border border-slate-800 p-2.5 rounded-2xl text-center">
-                <div className="text-xl sm:text-2xl font-black text-emerald-400">100% ICU</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('ઓક્સિજન સજ્જ', 'Equipped')}</div>
+              <div className="bg-slate-900/80 border border-slate-800 p-2.5 rounded-2xl text-center shadow-md hover:border-emerald-500/40 transition">
+                <div className="text-xl sm:text-2xl font-black text-emerald-400">
+                  <AnimatedCounter end={100} suffix="%" duration={1200} />
+                </div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('ઓક્સિજન સજ્જ', 'ICU Equipped')}</div>
               </div>
 
-              <div className="bg-slate-900/80 border border-slate-800 p-2.5 rounded-2xl text-center">
-                <div className="text-xl sm:text-2xl font-black text-blue-400">2 Fleet</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('ઝાયલો & ઈકો', 'Vehicles')}</div>
+              <div className="bg-slate-900/80 border border-slate-800 p-2.5 rounded-2xl text-center shadow-md hover:border-blue-500/40 transition">
+                <div className="text-xl sm:text-2xl font-black text-blue-400">
+                  <AnimatedCounter end={2} suffix={lang === 'gu' ? ' વાહનો' : ' Fleet'} duration={800} />
+                </div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('ઝાયલો & ઈકો', 'Xylo & Eeco')}</div>
               </div>
             </div>
 
@@ -132,37 +176,41 @@ export default function Hero({ onOpenBooking }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
 
                 {/* Top Status Badges */}
-                <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                  <span className="bg-red-600 text-white text-[11px] font-black uppercase px-3 py-1 rounded-full shadow-lg">
+                <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">
+                  <span className="bg-red-600 text-white text-[10px] sm:text-[11px] font-black uppercase px-2.5 sm:px-3 py-1 rounded-full shadow-lg">
                     🚑 Mahindra Xylo (ICU Fleet)
                   </span>
-                  <span className="bg-emerald-950/90 text-emerald-400 border border-emerald-500/40 text-[10px] font-black px-2.5 py-1 rounded-full flex items-center gap-1">
+                  <span className="bg-emerald-950/90 text-emerald-400 border border-emerald-500/40 text-[10px] font-black px-2 py-1 rounded-full flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>સ્ટેન્ડબાય તૈયાર</span>
+                    <span>{t('સ્ટેન્ડબાય તૈયાર', 'Standby Ready')}</span>
                   </span>
                 </div>
 
                 {/* Bottom Route Tag */}
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white">
-                  <span className="font-extrabold bg-slate-900/90 backdrop-blur-md px-3 py-1 rounded-lg border border-white/10 text-amber-300">
-                    🏥 રાજકોટ • અમદાવાદ • સુરત • લાંબી મુસાફરી
+                  <span className="font-extrabold bg-slate-900/90 backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-lg border border-white/10 text-amber-300 text-[11px] sm:text-xs truncate">
+                    {t('🏥 રાજકોટ • અમદાવાદ • સુરત • લાંબી મુસાફરી', '🏥 Rajkot • Ahmedabad • Surat • Express Transit')}
                   </span>
                 </div>
               </div>
 
               {/* Card Bottom CTA Strip */}
-              <div className="p-3.5 bg-slate-900 flex items-center justify-between gap-3 border-t border-slate-800">
-                <div className="text-xs">
-                  <span className="text-slate-400 block font-bold">સુવિધા: વેન્ટિલેટર + ડબલ ઓક્સિજન + AC</span>
-                  <span className="text-white font-black text-sm">મહિન્દ્રા ઝાયલો ICU એમ્બ્યુલન્સ</span>
+              <div className="p-3 sm:p-3.5 bg-slate-900 flex items-center justify-between gap-2 sm:gap-3 border-t border-slate-800">
+                <div className="text-xs min-w-0">
+                  <span className="text-slate-400 block font-bold truncate text-[11px]">
+                    {t('સુવિધા: વેન્ટિલેટર + ડબલ ઓક્સિજન + AC', 'Setup: Ventilator + Dual Oxygen + AC')}
+                  </span>
+                  <span className="text-white font-black text-xs sm:text-sm truncate block">
+                    {t('મહિન્દ્રા ઝાયલો ICU એમ્બ્યુલન્સ', 'Mahindra Xylo ICU Ambulance')}
+                  </span>
                 </div>
 
                 <a
                   href={`tel:${brand.primaryPhone}`}
-                  className="flex items-center gap-1.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-md shadow-red-600/40 transition active:scale-95"
+                  className="flex items-center gap-1.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-bold text-xs shadow-md shadow-red-600/40 transition active:scale-95 flex-shrink-0"
                 >
                   <Phone className="w-3.5 h-3.5 fill-white" />
-                  <span>{t('આ ગાડી બોલાવો', 'Call Xylo')}</span>
+                  <span>{t('કૉલ કરો', 'Call Xylo')}</span>
                 </a>
               </div>
             </div>
@@ -178,37 +226,41 @@ export default function Hero({ onOpenBooking }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
 
                 {/* Top Status Badges */}
-                <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                  <span className="bg-blue-600 text-white text-[11px] font-black uppercase px-3 py-1 rounded-full shadow-lg">
+                <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">
+                  <span className="bg-blue-600 text-white text-[10px] sm:text-[11px] font-black uppercase px-2.5 sm:px-3 py-1 rounded-full shadow-lg">
                     🚑 Maruti EECO (Rapid City)
                   </span>
-                  <span className="bg-emerald-950/90 text-emerald-400 border border-emerald-500/40 text-[10px] font-black px-2.5 py-1 rounded-full flex items-center gap-1">
+                  <span className="bg-emerald-950/90 text-emerald-400 border border-emerald-500/40 text-[10px] font-black px-2 py-1 rounded-full flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>૧૦ મિનિટ પહોંચ</span>
+                    <span>{t('૧૦ મિનિટ પહોંચ', '10 Min Reach')}</span>
                   </span>
                 </div>
 
                 {/* Bottom Route Tag */}
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white">
-                  <span className="font-extrabold bg-slate-900/90 backdrop-blur-md px-3 py-1 rounded-lg border border-white/10 text-blue-300">
-                    📍 ગોંડલ શહેર & આસપાસના ગ્રામ્ય વિસ્તારો
+                  <span className="font-extrabold bg-slate-900/90 backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-lg border border-white/10 text-blue-300 text-[11px] sm:text-xs truncate">
+                    {t('📍 ગોંડલ શહેર & આસપાસના ગ્રામ્ય વિસ્તારો', '📍 Gondal City & Surrounding Areas')}
                   </span>
                 </div>
               </div>
 
               {/* Card Bottom CTA Strip */}
-              <div className="p-3.5 bg-slate-900 flex items-center justify-between gap-3 border-t border-slate-800">
-                <div className="text-xs">
-                  <span className="text-slate-400 block font-bold">સુવિધા: ઓક્સિજન સિલિન્ડર + સ્ટ્રેચર + વ્યાજબી દર</span>
-                  <span className="text-white font-black text-sm">મારુતિ ઈકો સિટી એમ્બ્યુલન્સ</span>
+              <div className="p-3 sm:p-3.5 bg-slate-900 flex items-center justify-between gap-2 sm:gap-3 border-t border-slate-800">
+                <div className="text-xs min-w-0">
+                  <span className="text-slate-400 block font-bold truncate text-[11px]">
+                    {t('સુવિધા: ઓક્સિજન સિલિન્ડર + સ્ટ્રેચર', 'Setup: Oxygen Cylinder + Stretcher')}
+                  </span>
+                  <span className="text-white font-black text-xs sm:text-sm truncate block">
+                    {t('મારુતિ ઈકો સિટી એમ્બ્યુલન્સ', 'Maruti Eeco City Ambulance')}
+                  </span>
                 </div>
 
                 <a
                   href={`tel:${brand.secondaryPhone}`}
-                  className="flex items-center gap-1.5 bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-md shadow-blue-700/40 transition active:scale-95"
+                  className="flex items-center gap-1.5 bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-600 hover:to-blue-700 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-bold text-xs shadow-md shadow-blue-700/40 transition active:scale-95 flex-shrink-0"
                 >
                   <Phone className="w-3.5 h-3.5 fill-white" />
-                  <span>{t('આ ગાડી બોલાવો', 'Call Eeco')}</span>
+                  <span>{t('કૉલ કરો', 'Call Eeco')}</span>
                 </a>
               </div>
             </div>

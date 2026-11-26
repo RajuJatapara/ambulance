@@ -8,7 +8,7 @@ export default function Footer({ onOpenBooking, onOpenVisitingCard }) {
   const { brand } = siteConfig;
 
   return (
-    <footer className="bg-slate-950 text-slate-400 pt-16 pb-28 lg:pb-12 border-t border-slate-800">
+    <footer className="bg-slate-950 text-slate-400 pt-16 pb-36 lg:pb-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
           
@@ -46,11 +46,11 @@ export default function Footer({ onOpenBooking, onOpenVisitingCard }) {
               {t('અમારી ગાડીઓ & સુવિધાઓ', 'Fleet & Facilities')}
             </h4>
             <ul className="space-y-2 text-xs">
-              <li className="hover:text-white transition">🚑 Mahindra Xylo (ICU & AC)</li>
-              <li className="hover:text-white transition">🚑 Maruti EECO (Fast City Response)</li>
-              <li className="hover:text-white transition">💨 Oxygen & Ventilator Setup</li>
-              <li className="hover:text-white transition">🏥 Patient Hospital Shifting</li>
-              <li className="hover:text-white transition">❄️ AC / Non-AC Options</li>
+              <li className="hover:text-white transition">🚑 {t('મહિન્દ્રા ઝાયલો (ICU & AC)', 'Mahindra Xylo (ICU & AC)')}</li>
+              <li className="hover:text-white transition">🚑 {t('મારુતિ ઈકો (ઝડપી સિટી રિસ્પોન્સ)', 'Maruti EECO (Fast City Response)')}</li>
+              <li className="hover:text-white transition">💨 {t('ઓક્સિજન & વેન્ટિલેટર સેટઅપ', 'Oxygen & Ventilator Setup')}</li>
+              <li className="hover:text-white transition">🏥 {t('હોસ્પિટલ પેશન્ટ શિફ્ટિંગ', 'Patient Hospital Shifting')}</li>
+              <li className="hover:text-white transition">❄️ {t('AC / Non-AC વિકલ્પ', 'AC / Non-AC Options')}</li>
             </ul>
           </div>
 
@@ -61,6 +61,7 @@ export default function Footer({ onOpenBooking, onOpenVisitingCard }) {
             </h4>
             <ul className="space-y-2 text-xs">
               <li><a href="#vehicles" className="hover:text-white transition">{t('એમ્બ્યુલન્સ ગાડીઓ', 'Our Fleet')}</a></li>
+              <li><a href="#gallery" className="hover:text-white transition">{t('ઇન્ટિરિયર ગેલેરી', 'Interior Gallery')}</a></li>
               <li><a href="#services" className="hover:text-white transition">{t('સેવાઓ', 'Services')}</a></li>
               <li><a href="#routes" className="hover:text-white transition">{t('રૂટ્સ & અંતર', 'Routes')}</a></li>
               <li><a href="#why-us" className="hover:text-white transition">{t('અમારા વિશે', 'About Us')}</a></li>

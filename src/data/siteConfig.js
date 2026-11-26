@@ -11,7 +11,7 @@
 
 // Helper to resolve asset path reliably on GitHub Pages subfolder, local, or custom domain
 const getAsset = (path) => {
-  const base = import.meta.env.BASE_URL || './';
+  const base = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || './';
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
   return `${base}${cleanPath}`;
 };
@@ -32,7 +32,7 @@ export const siteConfig = {
     whatsappNumber: "919316777108",
     logo: getAsset("images/logo.png"),
     logoDark: getAsset("images/logo-dark.png"),
-    favicon: getAsset("images/favicon.png"),
+    favicon: getAsset("favicon.png"),
     visitingCardImage: getAsset("images/visiting-card.png"),
     taglineEn: "Your Health... Our Priority...",
     taglineGu: "સત્ય પ્રેમ ને કરુણા... સ્વાસ્થ્ય આપનું, પ્રાથમિકતા અમારી...",
@@ -61,11 +61,16 @@ export const siteConfig = {
       descriptionEn: "High-comfort SUV platform equipped with complete ICU apparatus, dual oxygen cylinders, and smooth hydraulic suspension for critical patient transfers to Rajkot or Ahmedabad.",
       descriptionGu: "વિશાળ અને આરામદાયક એસયુવી, જેમાં સંપૂર્ણ ICU સેટઅપ, ડબલ ઓક્સિજન, અને દર્દીને આંચકા ન લાગે તેવા સ્મૂથ સસ્પેન્શન સાથે રાજકોટ કે અમદાવાદ માટે સૌથી આદર્શ.",
       spaceDimensions: {
-        length: "14.5 Feet Long SUV",
-        cabinHeight: "High Roof Cabin",
-        patientBed: "Full Flat Reclining ICU Stretcher",
-        seating: "2 Relatives + 1 Doctor / Paramedic",
-        luggageSpace: "Ample Bag & Cylinder Storage"
+        lengthEn: "14.5 Feet Long SUV",
+        lengthGu: "૧૪.૫ ફૂટ લાંબી SUV",
+        cabinHeightEn: "High Roof Cabin",
+        cabinHeightGu: "હાઈ રૂફ કેબિન (ઊંચી છત)",
+        patientBedEn: "Full Flat Reclining ICU Stretcher",
+        patientBedGu: "ફુલ ફ્લેટ રીકલાઈનિંગ ICU સ્ટ્રેચર",
+        seatingEn: "2 Relatives + 1 Doctor / Paramedic",
+        seatingGu: "૨ સગા + ૧ ડોક્ટર / પેરામેડિક",
+        luggageSpaceEn: "Ample Bag & Cylinder Storage",
+        luggageSpaceGu: "સામાન અને સિલિન્ડર માટે પૂરતી જગ્યા"
       },
       hotspots: [
         {
@@ -73,28 +78,36 @@ export const siteConfig = {
           x: "42%",
           y: "65%",
           titleGu: "હાઇડ્રોલિક ઓટો-લોડિંગ સ્ટ્રેચર",
-          descGu: "આંચકા-મુક્ત ગાદીવાળો બેડ, જેથી દર્દીને લાંબી મુસાફરીમાં પીડા ન થાય."
+          titleEn: "Hydraulic Auto-Loading Stretcher",
+          descGu: "આંચકા-મુક્ત ગાદીવાળો બેડ, જેથી દર્દીને લાંબી મુસાફરીમાં પીડા ન થાય.",
+          descEn: "Shock-absorbing cushioned bed ensuring pain-free transit on long journeys."
         },
         {
           id: "ventilator",
           x: "68%",
           y: "32%",
           titleGu: "કાર્ડિયાક મોનિટર & વેન્ટિલેટર",
-          descGu: "હૃદયના ધબકારા, બીપી અને ઓક્સિજન લેવલ સતત મોનિટર કરતી અદ્યતન સિસ્ટમ."
+          titleEn: "Cardiac Monitor & Ventilator",
+          descGu: "હૃદયના ધબકારા, બીપી અને ઓક્સિજન લેવલ સતત મોનિટર કરતી અદ્યતન સિસ્ટમ.",
+          descEn: "Advanced system continuously monitoring heart rate, BP, and oxygen levels."
         },
         {
           id: "oxygen",
           x: "24%",
           y: "40%",
           titleGu: "ડબલ જમ્બો ઓક્સિજન સિલિન્ડર",
-          descGu: "અમદાવાદ સુધી ૪-૫ કલાક નોન-સ્ટોપ હાઈ-ફ્લો ઓક્સિજન સપ્લાય."
+          titleEn: "Dual Jumbo Oxygen Cylinders",
+          descGu: "અમદાવાદ સુધી ૪-૫ કલાક નોન-સ્ટોપ હાઈ-ફ્લો ઓક્સિજન સપ્લાય.",
+          descEn: "4-5 hours non-stop high-flow medical oxygen supply up to Ahmedabad."
         },
         {
           id: "seating",
           x: "82%",
           y: "55%",
           titleGu: "સગા-સંબંધીઓ માટે બેઠક",
-          descGu: "દર્દીની બરાબર બાજુમાં ૨ સગા અને ડોક્ટર આરામથી બેસી શકે તેવી સ્પેસ."
+          titleEn: "Dedicated Seating for Relatives",
+          descGu: "દર્દીની બરાબર બાજુમાં ૨ સગા અને ડોક્ટર આરામથી બેસી શકે તેવી સ્પેસ.",
+          descEn: "Comfortable seating space for 2 family members and doctor right beside patient."
         }
       ],
       keySpecs: [
@@ -121,11 +134,16 @@ export const siteConfig = {
       descriptionEn: "Highly agile ambulance engineered to navigate Gondal's bustling streets and narrow alleys swiftly. Best for quick local hospital admissions, dialysis trips, and checkups.",
       descriptionGu: "ગોંડલ શહેર અને આસપાસના ગામડાઓના રસ્તાઓમાં તાબડતોબ પહોંચવા માટે સૌથી ચપળ અને આર્થિક રીતે દરેક પરિવારને પરવડે તેવી ઝડપી એમ્બ્યુલન્સ.",
       spaceDimensions: {
-        length: "Compact City Transit",
-        cabinHeight: "Comfortable Seating",
-        patientBed: "Foldable Smooth Wheel Stretcher",
-        seating: "1-2 Relatives Comfortably",
-        luggageSpace: "Standard Patient Kit Storage"
+        lengthEn: "Compact City Transit",
+        lengthGu: "ચપળ સિટી એમ્બ્યુલન્સ",
+        cabinHeightEn: "Comfortable Seating",
+        cabinHeightGu: "આરામદાયક બેઠક વ્યવસ્થા",
+        patientBedEn: "Foldable Smooth Wheel Stretcher",
+        patientBedGu: "ફોલ્ડેબલ સ્મૂથ વ્હીલ બેડ",
+        seatingEn: "1-2 Relatives Comfortably",
+        seatingGu: "૧-૨ સગા આરામથી",
+        luggageSpaceEn: "Standard Patient Kit Storage",
+        luggageSpaceGu: "મેડિકલ કિટ સ્ટોરેજ"
       },
       hotspots: [
         {
@@ -133,28 +151,36 @@ export const siteConfig = {
           x: "48%",
           y: "68%",
           titleGu: "ફોલ્ડેબલ રોલિંગ સ્ટ્રેચર બેડ",
-          descGu: "દર્દીને ઘરના રૂમમાંથી સીધા ગાડીમાં ચડાવી શકાય તેવો સ્મૂથ વ્હીલ બેડ."
+          titleEn: "Foldable Rolling Stretcher Bed",
+          descGu: "દર્દીને ઘરના રૂમમાંથી સીધા ગાડીમાં ચડાવી શકાય તેવો સ્મૂથ વ્હીલ બેડ.",
+          descEn: "Smooth wheel bed to roll patient comfortably directly from room into vehicle."
         },
         {
           id: "oxygen-eeco",
           x: "22%",
           y: "45%",
           titleGu: "મેડિકલ ઓક્સિજન સિલિન્ડર સેટઅપ",
-          descGu: "ગોંડલ લોકલ હોસ્પિટલ શિફ્ટિંગ દરમિયાન સતત ઓક્સિજન ફ્લો."
+          titleEn: "Medical Oxygen Cylinder Setup",
+          descGu: "ગોંડલ લોકલ હોસ્પિટલ શિફ્ટિંગ દરમિયાન સતત ઓક્સિજન ફ્લો.",
+          descEn: "Continuous oxygen supply during local Gondal hospital transfers."
         },
         {
           id: "space-eeco",
           x: "80%",
           y: "62%",
           titleGu: "સગા-સંબંધી માટે બેઠક બેંચ",
-          descGu: "દર્દીની પડખે ૧-૨ સગા આરામથી બેસી શકે તેવી રેક્ઝિન સીટિંગ સ્પેસ."
+          titleEn: "Comfortable Bench Seating for Relatives",
+          descGu: "દર્દીની પડખે ૧-૨ સગા આરામથી બેસી શકે તેવી રેક્ઝિન સીટિંગ સ્પેસ.",
+          descEn: "Comfortable cushioned seating for 1-2 relatives alongside the patient."
         },
         {
           id: "firstaid-eeco",
           x: "65%",
           y: "35%",
           titleGu: "પ્રાથમિક સારવાર (First Aid) બોક્સ",
-          descGu: "બીપી મોનિટર, પાટા-પીંડી અને ઇમરજન્સી દવાઓની કિટ."
+          titleEn: "First Aid & Emergency Kit",
+          descGu: "બીપી મોનિટર, પાટા-પીંડી અને ઇમરજન્સી દવાઓની કિટ.",
+          descEn: "BP monitor, dressing bandages, and emergency medical kit."
         }
       ],
       keySpecs: [
@@ -313,6 +339,122 @@ export const siteConfig = {
       gu: "ગોંડલ થી જામનગર",
       priority: "Specialist Care",
       highlights: "Oxygen Monitored Transit"
+    }
+  ],
+
+  // 🏥 મુખ્ય હોસ્પિટલ્સ ડિરેક્ટરી (Major Referral Hospitals from Gondal)
+  hospitals: [
+    {
+      id: "aiims-rajkot",
+      city: "Rajkot",
+      cityGu: "રાજકોટ",
+      nameGu: "AIIMS હોસ્પિટલ (રાજકોટ)",
+      nameEn: "AIIMS Hospital Rajkot",
+      areaGu: "ખંઢેરી, જામનગર હાઇવે",
+      areaEn: "Khandheri, Jamnagar Highway",
+      specialtyGu: "ઓલ ઇન્ડિયા ઇન્સ્ટિટ્યૂટ - મલ્ટીસ્પેશિયાલિટી & ટ્રોમા",
+      specialtyEn: "All India Institute - Superspeciality & Trauma",
+      distance: "~48 KM",
+      eta: "40-45 Min",
+      recommendedVehicle: "Mahindra Xylo / Eeco",
+      recommendedVehicleGu: "ઝાયલો ICU અથવા ઈકો",
+      badge: "AIIMS National Institute"
+    },
+    {
+      id: "civil-rajkot",
+      city: "Rajkot",
+      cityGu: "રાજકોટ",
+      nameGu: "PDU સિવિલ હોસ્પિટલ (રાજકોટ)",
+      nameEn: "PDU Civil Hospital Rajkot",
+      areaGu: "હોસ્પિટલ ચોક, રાજકોટ",
+      areaEn: "Hospital Chowk, Rajkot",
+      specialtyGu: "ઇમરજન્સી ટ્રોમા સેન્ટર & ક્રિટિકલ કેર",
+      specialtyEn: "Emergency Trauma Center & Critical Care",
+      distance: "~38 KM",
+      eta: "35 Min",
+      recommendedVehicle: "Mahindra Xylo / Eeco",
+      recommendedVehicleGu: "ઝાયલો ICU અથવા ઈકો",
+      badge: "Government Trauma"
+    },
+    {
+      id: "sterling-rajkot",
+      city: "Rajkot",
+      cityGu: "રાજકોટ",
+      nameGu: "સ્ટર્લિંગ હોસ્પિટલ (રાજકોટ)",
+      nameEn: "Sterling Hospital Rajkot",
+      areaGu: "૧૫૦ ફૂટ રીંગ રોડ, રાજકોટ",
+      areaEn: "150 Feet Ring Road, Rajkot",
+      specialtyGu: "હૃદયરોગ (Cardiac), ન્યુરો & એડવાન્સ ICU",
+      specialtyEn: "Cardiac, Neuro & Advanced ICU",
+      distance: "~36 KM",
+      eta: "32 Min",
+      recommendedVehicle: "Mahindra Xylo ICU Ventilator",
+      recommendedVehicleGu: "મહિન્દ્રા ઝાયલો ICU વેન્ટિલેટર",
+      badge: "Cardiac & Neuro Care"
+    },
+    {
+      id: "synergy-rajkot",
+      city: "Rajkot",
+      cityGu: "રાજકોટ",
+      nameGu: "સિનર્જી સુપર સ્પેશિયાલિટી હોસ્પિટલ",
+      nameEn: "Synergy Superspeciality Hospital",
+      areaGu: "અયોધ્યા ચોકડી, ૧૫૦ ફૂટ રીંગ રોડ",
+      areaEn: "Ayodhya Chowk, 150 Feet Ring Road",
+      specialtyGu: "ક્રિટિકલ ICU, ઓર્થોપેડિક & ઇમરજન્સી",
+      specialtyEn: "Critical ICU, Orthopedic & Emergency",
+      distance: "~37 KM",
+      eta: "35 Min",
+      recommendedVehicle: "Mahindra Xylo ICU",
+      recommendedVehicleGu: "મહિન્દ્રા ઝાયલો ICU",
+      badge: "Critical ICU"
+    },
+    {
+      id: "un-mehta-ahmedabad",
+      city: "Ahmedabad",
+      cityGu: "અમદાવાદ",
+      nameGu: "યુ.એન. મહેતા હાર્ટ ઇન્સ્ટિટ્યૂટ (અમદાવાદ)",
+      nameEn: "U.N. Mehta Heart Institute Ahmedabad",
+      areaGu: "સિવિલ મેડિસિટી કેમ્પસ, અસારવા",
+      areaEn: "Civil Medicity Campus, Asarwa",
+      specialtyGu: "એશિયાનું શ્રેષ્ઠ હૃદયરોગ & હાર્ટ સર્જરી સેન્ટર",
+      specialtyEn: "Asia's Premier Cardiology & Heart Surgery",
+      distance: "~255 KM",
+      eta: "4.5 કલાક",
+      recommendedVehicle: "Mahindra Xylo (Dual O2 + ICU)",
+      recommendedVehicleGu: "મહિન્દ્રા ઝાયલો (ડબલ O2 + ICU સેટઅપ)",
+      badge: "Heart Specialist"
+    },
+    {
+      id: "cims-ahmedabad",
+      city: "Ahmedabad",
+      cityGu: "અમદાવાદ",
+      nameGu: "મેરેંગો સીમ્સ હોસ્પિટલ (અમદાવાદ)",
+      nameEn: "Marengo CIMS Hospital Ahmedabad",
+      areaGu: "સાયન્સ સિટી રોડ, સોલા",
+      areaEn: "Science City Road, Sola",
+      specialtyGu: "હાર્ટ-લંગ ટ્રાન્સપ્લાન્ટ & એડવાન્સ મલ્ટીસ્પેશિયાલિટી",
+      specialtyEn: "Heart-Lung Transplant & Advanced Care",
+      distance: "~245 KM",
+      eta: "4.2 કલાક",
+      recommendedVehicle: "Mahindra Xylo ICU",
+      recommendedVehicleGu: "મહિન્દ્રા ઝાયલો ICU",
+      badge: "Transplant & Super-ICU"
+    },
+    {
+      id: "zydus-ahmedabad",
+      city: "Ahmedabad",
+      cityGu: "અમદાવાદ",
+      nameGu: "ઝાયડસ હોસ્પિટલ (અમદાવાદ)",
+      nameEn: "Zydus Hospital Ahmedabad",
+      areaGu: "હેબતપુર, SG હાઇવે, થલતેજ",
+      areaEn: "Hebatpur, SG Highway, Thaltej",
+      specialtyGu: "મલ્ટી-ઓર્ગન કેર, કેન્સર & ક્રિટિકલ ટ્રોમા",
+      specialtyEn: "Multi-Organ Care, Oncology & Critical Trauma",
+      distance: "~248 KM",
+      eta: "4.3 કલાક",
+      recommendedVehicle: "Mahindra Xylo ICU",
+      recommendedVehicleGu: "મહિન્દ્રા ઝાયલો ICU",
+      badge: "Superspeciality Care"
     }
   ],
 

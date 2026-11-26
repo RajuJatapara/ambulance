@@ -71,15 +71,15 @@ export default function Vehicles({ onSelectVehicle }) {
                   </div>
 
                   {/* 🔄 EXTERIOR vs INTERIOR LIVE TOGGLE BAR */}
-                  <div className="bg-slate-900 p-2 flex items-center justify-between px-4 border-b border-slate-800 text-xs">
-                    <span className="text-slate-400 font-bold hidden sm:inline">
-                      {isInterior ? '🛏️ અંદરની કેબિન સ્પેસ વ્યુ' : '🚗 બહારનો વાસ્તવિક લૂક'}
+                  <div className="bg-slate-900 p-2 flex flex-col sm:flex-row items-center justify-between gap-2 px-3 sm:px-4 border-b border-slate-800 text-xs">
+                    <span className="text-slate-300 font-bold hidden sm:inline">
+                      {isInterior ? t('🛏️ અંદરની કેબિન સ્પેસ વ્યુ', '🛏️ Inside Cabin Space View') : t('🚗 બહારનો વાસ્તવિક લૂક', '🚗 Real Exterior Look')}
                     </span>
 
                     <div className="inline-flex p-1 bg-slate-800 rounded-xl border border-slate-700 w-full sm:w-auto justify-center">
                       <button
                         onClick={() => toggleViewMode(v.id, 'exterior')}
-                        className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all ${!isInterior
+                        className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg font-bold text-xs transition-all ${!isInterior
                           ? 'bg-red-600 text-white shadow font-black'
                           : 'text-slate-400 hover:text-white'
                           }`}
@@ -89,13 +89,13 @@ export default function Vehicles({ onSelectVehicle }) {
 
                       <button
                         onClick={() => toggleViewMode(v.id, 'interior')}
-                        className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all flex items-center gap-1 ${isInterior
+                        className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg font-bold text-xs transition-all flex items-center justify-center gap-1 ${isInterior
                           ? 'bg-amber-400 text-slate-950 shadow font-black'
                           : 'text-slate-400 hover:text-white'
                           }`}
                       >
                         <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                        <span>🛏️ {t('અંદરની જગ્યા (Cabin Space)', 'Inside Cabin')}</span>
+                        <span>🛏️ {t('અંદરની કેબિન', 'Inside Cabin')}</span>
                       </button>
                     </div>
                   </div>
@@ -119,7 +119,7 @@ export default function Vehicles({ onSelectVehicle }) {
                       ) : (
                         <>
                           <Bed className="w-3.5 h-3.5 text-yellow-400" />
-                          <span>{isXylo ? 'ICU Stretcher + 2 Attendants + Doctor' : 'Stretcher Bed + 1 Attendant'}</span>
+                          <span>{isXylo ? t('ICU સ્ટ્રેચર + ૨ સગા + ૧ ડોક્ટર', 'ICU Stretcher + 2 Attendants + Doctor') : t('સ્ટ્રેચર બેડ + ૧ સગા માટે બેઠક', 'Stretcher Bed + 1 Attendant')}</span>
                         </>
                       )}
                     </div>
@@ -134,7 +134,7 @@ export default function Vehicles({ onSelectVehicle }) {
                         <button
                           onClick={() => setActiveHotspot(activeHotspot?.id === spot.id ? null : spot)}
                           className="relative flex items-center justify-center w-8 h-8 rounded-full bg-red-600 text-white font-black text-xs shadow-[0_0_15px_rgba(220,38,38,0.9)] border-2 border-white animate-bounce focus:outline-none"
-                          title={spot.titleGu}
+                          title={lang === 'gu' ? spot.titleGu : (spot.titleEn || spot.titleGu)}
                         >
                           <span>+</span>
                           <span className="absolute inset-0 rounded-full bg-red-400 animate-ping opacity-75"></span>
@@ -150,7 +150,9 @@ export default function Vehicles({ onSelectVehicle }) {
                             <span className="p-1 bg-amber-400/20 text-amber-300 rounded-lg">
                               <Info className="w-4 h-4 text-amber-400" />
                             </span>
-                            <h4 className="font-black text-amber-300 text-sm">{activeHotspot.titleGu}</h4>
+                            <h4 className="font-black text-amber-300 text-sm">
+                              {lang === 'gu' ? activeHotspot.titleGu : (activeHotspot.titleEn || activeHotspot.titleGu)}
+                            </h4>
                           </div>
                           <button
                             onClick={() => setActiveHotspot(null)}
@@ -160,14 +162,14 @@ export default function Vehicles({ onSelectVehicle }) {
                           </button>
                         </div>
                         <p className="text-xs text-slate-200 mt-1 pl-6 leading-relaxed">
-                          {activeHotspot.descGu}
+                          {lang === 'gu' ? activeHotspot.descGu : (activeHotspot.descEn || activeHotspot.descGu)}
                         </p>
                       </div>
                     )}
 
                     {/* Bottom Right Route Specialist Tag */}
                     <div className="absolute bottom-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-lg shadow">
-                      {isXylo ? 'Long Route Specialist' : 'City 10-15 Min Reach'}
+                      {isXylo ? t('લાંબા રૂટ સ્પેશિયાલિસ્ટ', 'Long Route Specialist') : t('શહેરમાં ૧૦-૧૫ મિનિટમાં પહોંચ', 'City 10-15 Min Reach')}
                     </div>
                   </div>
 
@@ -178,16 +180,28 @@ export default function Vehicles({ onSelectVehicle }) {
                     </span>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-slate-700 font-bold">
                       <div className="bg-white p-2 rounded-lg border border-slate-200">
-                        <span className="text-[10px] text-slate-400 block font-normal">સગા માટે બેઠક:</span>
-                        <span className="text-slate-900">{v.spaceDimensions?.seating}</span>
+                        <span className="text-[10px] text-slate-400 block font-normal">
+                          {t('સગા માટે બેઠક:', 'Relatives Seating:')}
+                        </span>
+                        <span className="text-slate-900 text-xs">
+                          {lang === 'gu' ? (v.spaceDimensions?.seatingGu || v.spaceDimensions?.seating) : (v.spaceDimensions?.seatingEn || v.spaceDimensions?.seating)}
+                        </span>
                       </div>
                       <div className="bg-white p-2 rounded-lg border border-slate-200">
-                        <span className="text-[10px] text-slate-400 block font-normal">દર્દી બેડ:</span>
-                        <span className="text-slate-900">{v.spaceDimensions?.patientBed}</span>
+                        <span className="text-[10px] text-slate-400 block font-normal">
+                          {t('દર્દી બેડ:', 'Patient Bed:')}
+                        </span>
+                        <span className="text-slate-900 text-xs">
+                          {lang === 'gu' ? (v.spaceDimensions?.patientBedGu || v.spaceDimensions?.patientBed) : (v.spaceDimensions?.patientBedEn || v.spaceDimensions?.patientBed)}
+                        </span>
                       </div>
                       <div className="bg-white p-2 rounded-lg border border-slate-200 col-span-2 sm:col-span-1">
-                        <span className="text-[10px] text-slate-400 block font-normal">કેબિન ઊંચાઈ:</span>
-                        <span className="text-slate-900">{v.spaceDimensions?.cabinHeight}</span>
+                        <span className="text-[10px] text-slate-400 block font-normal">
+                          {t('કેબિન ઊંચાઈ:', 'Cabin Height:')}
+                        </span>
+                        <span className="text-slate-900 text-xs">
+                          {lang === 'gu' ? (v.spaceDimensions?.cabinHeightGu || v.spaceDimensions?.cabinHeight) : (v.spaceDimensions?.cabinHeightEn || v.spaceDimensions?.cabinHeight)}
+                        </span>
                       </div>
                     </div>
                   </div>

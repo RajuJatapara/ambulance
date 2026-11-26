@@ -5,7 +5,7 @@ import { siteConfig } from '../data/siteConfig';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle }) {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const { brand } = siteConfig;
 
   const [formData, setFormData] = useState({
@@ -76,7 +76,8 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
       // ignore
     }
 
-    const message = `🚨 *નવી એમ્બ્યુલન્સ બુકિંગ વિનંતી* 🚨
+    const message = lang === 'gu'
+      ? `🚨 *નવી એમ્બ્યુલન્સ બુકિંગ વિનંતી* 🚨
 -------------------------------------
 👤 દર્દી/સગાનું નામ: ${formData.name.trim()}
 📞 સંપર્ક નંબર: ${formData.phone.trim()}
@@ -86,7 +87,18 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
 ⚠️ ઇમરજન્સી લેવલ: ${formData.emergencyType}
 📝 નોંધ: ${formData.patientCondition.trim() || 'સામાન્ય'}
 -------------------------------------
-કૃપા કરીને તાત્કાલિક સંપર્ક કરો!`;
+કૃપા કરીને તાત્કાલિક સંપર્ક કરો!`
+      : `🚨 *NEW AMBULANCE BOOKING REQUEST* 🚨
+-------------------------------------
+👤 Patient / Relative: ${formData.name.trim()}
+📞 Contact Number: ${formData.phone.trim()}
+📍 Pickup Address: ${formData.pickupLocation.trim()}
+🏥 Destination Hospital: ${formData.dropHospital.trim() || 'To be decided'}
+🚑 Selected Fleet: ${formData.vehicle}
+⚠️ Urgency Level: ${formData.emergencyType}
+📝 Special Notes: ${formData.patientCondition.trim() || 'Standard'}
+-------------------------------------
+Please respond immediately!`;
 
     const whatsappUrl = `https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -152,7 +164,7 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
                   </label>
                   <input
                     type="text"
-                    placeholder="દા.ત. રમેશભાઈ"
+                    placeholder={t('દા.ત. રમેશભાઈ', 'e.g. Ramesh Patel')}
                     value={formData.name}
                     onBlur={() => handleBlur('name')}
                     onChange={(e) => {
@@ -161,7 +173,7 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
                         setErrors({ ...errors, name: null });
                       }
                     }}
-                    className={`w-full px-3 py-2 text-sm border rounded-xl focus:outline-none transition ${
+                    className={`w-full px-3 py-2 text-base sm:text-sm border rounded-xl focus:outline-none transition ${
                       touched.name && errors.name
                         ? 'border-red-500 bg-red-50/40 focus:ring-2 focus:ring-red-400'
                         : 'border-slate-300 focus:ring-2 focus:ring-red-500'
@@ -182,7 +194,7 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
                   </label>
                   <input
                     type="tel"
-                    placeholder="દા.ત. 9898XXXXXX"
+                    placeholder={t('દા.ત. 9898XXXXXX', 'e.g. 9898XXXXXX')}
                     value={formData.phone}
                     onBlur={() => handleBlur('phone')}
                     onChange={(e) => {
@@ -191,7 +203,7 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
                         setErrors({ ...errors, phone: null });
                       }
                     }}
-                    className={`w-full px-3 py-2 text-sm border rounded-xl focus:outline-none transition ${
+                    className={`w-full px-3 py-2 text-base sm:text-sm border rounded-xl focus:outline-none transition ${
                       touched.phone && errors.phone
                         ? 'border-red-500 bg-red-50/40 focus:ring-2 focus:ring-red-400'
                         : 'border-slate-300 focus:ring-2 focus:ring-red-500'
@@ -215,7 +227,7 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
                   </label>
                   <input
                     type="text"
-                    placeholder="ગોંડલ, કોલેજ ચોકડી..."
+                    placeholder={t('ગોંડલ, કોલેજ ચોકડી...', 'Gondal, College Chowkadi...')}
                     value={formData.pickupLocation}
                     onBlur={() => handleBlur('pickupLocation')}
                     onChange={(e) => {
@@ -224,7 +236,7 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
                         setErrors({ ...errors, pickupLocation: null });
                       }
                     }}
-                    className={`w-full px-3 py-2 text-sm border rounded-xl focus:outline-none transition ${
+                    className={`w-full px-3 py-2 text-base sm:text-sm border rounded-xl focus:outline-none transition ${
                       touched.pickupLocation && errors.pickupLocation
                         ? 'border-red-500 bg-red-50/40 focus:ring-2 focus:ring-red-400'
                         : 'border-slate-300 focus:ring-2 focus:ring-red-500'
@@ -245,10 +257,10 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
                   </label>
                   <input
                     type="text"
-                    placeholder="દા.ત. રાજકોટ AIIMS / સિવિલ"
+                    placeholder={t('દા.ત. રાજકોટ AIIMS / સિવિલ', 'e.g. Rajkot AIIMS / Civil')}
                     value={formData.dropHospital}
                     onChange={(e) => setFormData({ ...formData, dropHospital: e.target.value })}
-                    className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    className="w-full px-3 py-2 text-base sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -261,11 +273,17 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
                 <select
                   value={formData.vehicle}
                   onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
-                  className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none bg-white font-medium"
+                  className="w-full px-3 py-2 text-base sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none bg-white font-medium"
                 >
-                  <option value="Mahindra Xylo Ambulance">Mahindra Xylo (ICU + AC Setup / લાંબી મુસાફરી)</option>
-                  <option value="Maruti EECO Ambulance">Maruti EECO (ઝડપી લોકલ ઇમરજન્સી)</option>
-                  <option value="Any Available (સૌથી પહેલા મળે તે)">Any Available (સૌથી પહેલા મળે તે)</option>
+                  <option value="Mahindra Xylo Ambulance">
+                    {t('મહિન્દ્રા ઝાયલો (ICU + AC સેટઅપ / લાંબી મુસાફરી)', 'Mahindra Xylo (ICU + AC Setup / Long Transit)')}
+                  </option>
+                  <option value="Maruti EECO Ambulance">
+                    {t('મારુતિ ઈકો (ઝડપી લોકલ ઇમરજન્સી)', 'Maruti EECO (Rapid Local Emergency)')}
+                  </option>
+                  <option value="Any Available">
+                    {t('સૌથી પહેલા મળે તે એમ્બ્યુલન્સ', 'First Available Ambulance')}
+                  </option>
                 </select>
               </div>
 
@@ -276,10 +294,10 @@ export default function QuickBookingModal({ isOpen, onClose, preselectedVehicle 
                 </label>
                 <textarea
                   rows="2"
-                  placeholder="દા.ત. ઓક્સિજનની જરૂર છે, સ્ટ્રેચરની જરૂર છે..."
+                  placeholder={t('દા.ત. ઓક્સિજનની જરૂર છે, સ્ટ્રેચરની જરૂર છે...', 'e.g. Oxygen cylinder required, stretcher needed...')}
                   value={formData.patientCondition}
                   onChange={(e) => setFormData({ ...formData, patientCondition: e.target.value })}
-                  className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none"
+                  className="w-full px-3 py-2 text-base sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:outline-none"
                 ></textarea>
               </div>
 

@@ -28,5 +28,62 @@
   animation: emergencyPulse 1.8s infinite;
 }
 
+/* Dual Red-Blue Emergency Beacon Siren Flashes */
+@keyframes beaconRed {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes beaconBlue {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(0.98);
+  }
+}
+
+.animate-beacon-red {
+  animation: beaconRed 1.8s ease-in-out infinite;
+}
+
+.animate-beacon-blue {
+  animation: beaconBlue 1.8s ease-in-out infinite;
+}
+
+/* Animated Medical ECG Heartbeat Line */
+@keyframes ecgMove {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-ecg {
+  stroke-dasharray: 1000;
+  animation: ecgMove 4s linear infinite;
+}
+
+/* Road surface dash lines motion */
+@keyframes roadMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-40px);
+  }
+}
+
+
 
 

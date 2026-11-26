@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Phone, MessageCircle, Navigation, Zap, AlertCircle } from 'lucide-react';
+import { Phone, Navigation, MessageCircle, ShieldAlert, Sparkles } from 'lucide-react';
 import { siteConfig } from '../data/siteConfig';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function StickyEmergencyBar({ onOpenBooking }) {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const { brand } = siteConfig;
   const [isLocating, setIsLocating] = useState(false);
 
@@ -19,84 +19,116 @@ export default function StickyEmergencyBar({ onOpenBooking }) {
           setIsLocating(false);
           const { latitude, longitude } = position.coords;
           const mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-          const message = `🚨 *ઇમરજન્સી એમ્બ્યુલન્સ જરૂરિયાત!* 🚨
+          
+          const message = lang === 'gu'
+            ? `🚨 *ઇમરજન્સી એમ્બ્યુલન્સ જરૂરિયાત!* 🚨
 કૃપા કરીને તાત્કાલિક એમ્બ્યુલન્સ મોકલો.
 📍 *મારું લાઈવ GPS લોકેશન:*
 ${mapUrl}
 
-(આ લોકેશન પર તાત્કાલિક પહોંચો)`;
+(ગોંડલ / નજીકના વિસ્તારમાંથી તાત્કાલિક આવો)`
+            : `🚨 *EMERGENCY AMBULANCE REQUIRED!* 🚨
+Please dispatch an ambulance immediately.
+📍 *My Live GPS Location:*
+${mapUrl}
+
+(Please arrive at this location urgently)`;
+
           window.open(`https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
         },
         (error) => {
           setIsLocating(false);
-          // Fallback if user denies permission
-          const fallbackMsg = `🚨 *ઇમરજન્સી એમ્બ્યુલન્સ જરૂરિયાત!* 🚨
+          // Fallback if user denies location permission
+          const fallbackMsg = lang === 'gu'
+            ? `🚨 *ઇમરજન્સી એમ્બ્યુલન્સ જરૂરિયાત!* 🚨
 મારે ગોંડલ / આસપાસના વિસ્તારમાં તાત્કાલિક એમ્બ્યુલન્સની જરૂર છે.
-કૃપા કરીને તાત્કાલિક સંપર્ક કરો!`;
+કૃપા કરીને તાત્કાલિક સંપર્ક કરો!`
+            : `🚨 *EMERGENCY AMBULANCE REQUIRED!* 🚨
+I need an ambulance immediately in Gondal or nearby area.
+Please respond urgently!`;
+
           window.open(`https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(fallbackMsg)}`, '_blank');
         },
         { enableHighAccuracy: true, timeout: 6000 }
       );
     } else {
       setIsLocating(false);
-      window.open(`https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent('ઇમરજન્સી એમ્બ્યુલન્સ જરૂરિયાત!')}`, '_blank');
+      window.open(
+        `https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(
+          lang === 'gu' ? '🚨 ઇમરજન્સી એમ્બ્યુલન્સ જરૂરિયાત!' : '🚨 Urgent Ambulance Required!'
+        )}`,
+        '_blank'
+      );
     }
   };
 
   return (
     <aside
-      aria-label="3D Floating Emergency Command Dock"
-      className="lg:hidden fixed bottom-3 left-3 right-3 z-50 pointer-events-none"
+      aria-label="Mobile Floating Emergency Bar"
+      className="lg:hidden fixed bottom-2.5 left-2.5 right-2.5 z-50 pointer-events-none"
     >
-      <div className="max-w-md mx-auto pointer-events-auto bg-slate-900/90 backdrop-blur-2xl rounded-3xl p-2 border-2 border-red-500/50 shadow-[0_12px_40px_rgba(220,38,38,0.45)]">
+      <div className="max-w-lg mx-auto pointer-events-auto bg-slate-950/95 backdrop-blur-2xl rounded-2xl p-2 border border-red-500/40 shadow-[0_12px_40px_rgba(220,38,38,0.45)]">
         
-        {/* Floating Dock Grid */}
-        <div className="grid grid-cols-12 gap-1.5 items-center">
-          
-          {/* Secondary Hotline (Small Compact Pill) */}
+        {/* Micro Status & Secondary Helpline Pill */}
+        <div className="flex items-center justify-between px-2 py-1 mb-1.5 bg-slate-900/90 rounded-xl text-[11px] border border-slate-800">
+          <div className="flex items-center gap-1.5 font-bold text-slate-300">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span className="text-emerald-400">{t('૨૪x૭ સ્ટેન્ડબાય', '24x7 Standby')}</span>
+          </div>
+
           <a
             href={`tel:${brand.secondaryPhone}`}
-            className="col-span-3 flex flex-col items-center justify-center bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 py-2.5 px-1 rounded-2xl border border-slate-700/80 active:scale-95 transition"
-            title="Secondary Helpline"
+            className="flex items-center gap-1 text-slate-300 hover:text-white font-bold transition"
+            title="Call Secondary Helpline"
           >
-            <Phone className="w-3.5 h-3.5 text-blue-400 mb-0.5" />
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">લાઇન ૨</span>
-            <span className="text-[10px] font-black text-white">{brand.secondaryPhone.slice(-5)}</span>
+            <Phone className="w-3 h-3 text-blue-400" />
+            <span className="text-slate-400 font-normal">{t('લાઇન ૨:', 'Line 2:')}</span>
+            <span className="text-yellow-300 font-extrabold underline">{brand.secondaryPhone}</span>
           </a>
+        </div>
 
-          {/* 🔴 BIG 3D PULSING PRIMARY SOS BUTTON (CENTERPIECE) */}
+        {/* 2 Big Ergonomic Action Buttons */}
+        <div className="grid grid-cols-12 gap-2 items-stretch">
+          
+          {/* Button 1: 🔴 PRIMARY EMERGENCY CALL (60% width) */}
           <a
             href={`tel:${brand.primaryPhone}`}
-            className="col-span-6 relative flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white py-3 px-2 rounded-2xl shadow-lg shadow-red-600/60 active:scale-95 transition border border-red-400/50 overflow-hidden group"
+            className="col-span-7 relative flex items-center justify-center gap-2.5 bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-700 hover:to-rose-700 text-white py-3 px-3 rounded-xl shadow-lg shadow-red-600/50 active:scale-95 transition border border-red-400/50 overflow-hidden group select-none"
           >
             {/* Ambient Pulse Ripple */}
-            <span className="absolute inset-0 bg-white/20 rounded-2xl animate-ping opacity-25 pointer-events-none"></span>
+            <span className="absolute inset-0 bg-white/20 rounded-xl animate-ping opacity-25 pointer-events-none"></span>
 
-            <span className="p-1.5 bg-white/20 rounded-xl group-hover:rotate-12 transition">
-              <Phone className="w-4 h-4 fill-white animate-bounce" />
+            <span className="p-1.5 bg-white/20 rounded-lg group-hover:rotate-12 transition flex-shrink-0">
+              <Phone className="w-5 h-5 fill-white animate-bounce" />
             </span>
-            <div className="text-left">
-              <span className="text-[9px] block font-black uppercase tracking-wider text-red-100">
-                🚨 1-ટેપ SOS કૉલ
+            <div className="text-left min-w-0">
+              <span className="text-[10px] block font-black uppercase tracking-wider text-red-100 leading-tight truncate">
+                {t('🚨 ૧-ટેપ SOS કૉલ', '🚨 1-Tap SOS Call')}
               </span>
-              <span className="text-sm font-black tracking-tight text-white block -mt-0.5">
+              <span className="text-sm sm:text-base font-black tracking-tight text-white block leading-none mt-0.5">
                 {brand.primaryPhone}
               </span>
             </div>
           </a>
 
-          {/* WhatsApp GPS Live Location Button */}
+          {/* Button 2: 🟢 WHATSAPP LIVE GPS (40% width) */}
           <button
             onClick={handleSendGPSLocation}
             disabled={isLocating}
-            className="col-span-3 flex flex-col items-center justify-center bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 px-1 rounded-2xl shadow-md border border-emerald-400/40 active:scale-95 transition"
-            title="WhatsApp Live Location"
+            className="col-span-5 relative flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white py-3 px-2 rounded-xl shadow-lg shadow-emerald-600/40 border border-emerald-400/40 active:scale-95 transition select-none disabled:opacity-75"
+            title="Send WhatsApp Location"
           >
-            <Navigation className={`w-3.5 h-3.5 text-white mb-0.5 ${isLocating ? 'animate-spin' : ''}`} />
-            <span className="text-[9px] font-bold text-emerald-100 uppercase tracking-tighter">
-              {isLocating ? 'શોધે છે...' : 'જીપીએસ'}
-            </span>
-            <span className="text-[10px] font-black text-white">WhatsApp</span>
+            <div className="p-1.5 bg-white/20 rounded-lg flex-shrink-0">
+              <Navigation className={`w-4 h-4 text-white ${isLocating ? 'animate-spin' : ''}`} />
+            </div>
+            <div className="text-left min-w-0">
+              <span className="text-[10px] block font-bold text-emerald-100 uppercase tracking-tight truncate leading-tight">
+                {isLocating ? t('શોધે છે...', 'Locating...') : t('લાઈવ GPS', 'Live GPS')}
+              </span>
+              <span className="text-xs sm:text-sm font-black text-white block leading-none mt-0.5 truncate">
+                WhatsApp
+              </span>
+            </div>
           </button>
 
         </div>
